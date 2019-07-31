@@ -12,6 +12,15 @@ node{
           cc: 'mohamed.sadiqh@gmail.com', from: '', replyTo: '', subject: 'Jenkins job', to: 'vasucena145@gmail.com'
 
 }
+    stage('master-branch-stuff'){
+        agent any
+             when{
+                 branch 'master'
+                 }
+             steps {
+                  echo 'run this stage - ony if the branch = master branch'
+              }
+          }
      stage('Slack Notification'){
            slackSend baseUrl: 'https://hooks.slack.com/services/', 
            channel: 'jenkins-pipeline', color: 'good', 
