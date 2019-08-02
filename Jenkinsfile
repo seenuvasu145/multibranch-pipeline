@@ -8,12 +8,14 @@ node{
          sh "${mvnHome}/bin/mvn package"
 } 
    stage('My Conditional Stage') {
-         when (BRANCH_NAME != 'master') {
-              echo 'Only on master branch.'
-             }
+      when {
+            branch 'master'
+         }
+      steps {
+        echo 'Do that only on master branch'
+        }
      }
-
-     stage('Slack Notification'){
+   stage('Slack Notification'){
            slackSend baseUrl: 'https://hooks.slack.com/services/', 
            channel: 'jenkins-pipeline', color: 'good', 
            message:"${currentBuild.result}: ${BUILD_URL} ${JOB_NAME}-Build# ${BUILD_NUMBER} ${currentBuild.result}", 
