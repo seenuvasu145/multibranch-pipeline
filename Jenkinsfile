@@ -7,14 +7,13 @@ node{
          def mvnHome = tool name: 'maven-3', type: 'maven' 
          sh "${mvnHome}/bin/mvn package"
 } 
-   stage('My Conditional Stage') {
-      when {
-            branch 'master'
-         }
-      steps {
-        echo 'Do that only on master branch'
+   stage('Skip stage') {
+        if (env.BRANCH_NAME == 'master') {
+            echo 'I only execute on the master branch'
+        } else {
+            echo 'I execute elsewhere'
         }
-     }
+    }
    stage('Slack Notification'){
            slackSend baseUrl: 'https://hooks.slack.com/services/', 
            channel: 'jenkins-pipeline', color: 'good', 
