@@ -1,3 +1,13 @@
+
+properties([parameters([choice(choices: 'master\nesafe', description: 'Select Branch to build', name: 'branch')])])
+
+node{
+    stage('Scm Checkout'){
+        echo "Pulling changes from the branch ${params.branch}"
+        git url: 'https://github.com/seenuvasu145/multibranch-pipeline', branch: "${params.branch}"
+    }
+    
+}
 node{
     stage('SCM Checkout'){
          git 'https://github.com/seenuvasu145/my-app.git'
